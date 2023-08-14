@@ -37,12 +37,22 @@
         <!-- Nhiệt độ -->
         <p>
         <label for="text">Temp: </label>
-        <input type="text" name="txtTemp" id="txtTemp" required onfocus="doico2()" onblur="doilai2()">
+        <input type="number" name="txtTemp" id="txtTemp" required onfocus="doico2()" onblur="doilai2()">
         </p>
         <!-- Độ ẩm -->
         <p>
             <label for="text">Hum: </label>
-            <input type="text" name="txtHum" id="txtHum" required onfocus="doico3()" onblur="doilai3()">
+            <input type="number" name="txtHum" id="txtHum" required onfocus="doico3()" onblur="doilai3()">
+        </p>
+        <p>
+        <label for="text">Tray planting: </label>
+            <select class="form-select" id="tray" name="tray">
+                <option value="">Tray</option>
+                <option value="1" id="tray1">1</option>
+                <option value="2" id="tray2">2</option>
+                <option value="3" id="tray3">3</option>
+                <option value="4" id="tray4">4</option>
+            </select>
         </p>
         <label for="text">Day, month, year planting: </label>
         <!-- day -->
@@ -107,23 +117,67 @@
         <label for="chAcpt">
             <input type="checkbox" name="chAcpt" id="chAcpt"/> You agree to enter informationn </p> <br>
         </label>
-    <button class="send"onclick="checkDangky()">Send data</button>
+    <button class="send"onclick="checkDangky(),submitValue()">Send data</button>
     <button class="re" type="button" onclick="tai_lai_trang()">Retype</button>
 
 
     <div id="ketqua"></div>
     <script>
+
+        function submitValue() {
+            var Tray = document.getElementById('tray').value;
+            
+            if  (Tray==="1"){
+                // Get the value entered by the user
+                var input = document.getElementById('txtName');
+                var value = input.value;
+                
+                localStorage.setItem('name1', value);
+                
+                window.location.href = 'testout.html';//liên kết qua trang hiển thị
+            }
+            else if (Tray==="2"){
+                var input = document.getElementById('txtName');
+                var value = input.value;
+                
+                localStorage.setItem('name2', value);
+                
+                window.location.href = 'testout.html';//liên kết qua trang hiển thị
+            }
+            else if  (Tray==="3"){
+                // Get the value entered by the user
+                var input = document.getElementById('txtName');
+                var value = input.value;
+                
+                localStorage.setItem('name3', value);
+                
+                window.location.href = 'testout.html';//liên kết qua trang hiển thị
+            }
+            else if (Tray==="4"){
+                var input = document.getElementById('txtName');
+                var value = input.value;
+                
+                localStorage.setItem('name4', value);
+                
+                window.location.href = 'testout.html';//liên kết qua trang hiển thị
+            }
+            
+        }
+        // in ra thông tin
         function checkDangky(){
             var name = document.getElementById("txtName").value;
             var accept = document.getElementById("chAcpt").checked;
             var temp = document.getElementById("txtTemp").value;
             var hum = document.getElementById("txtHum").value;
+            var Tray = document.getElementById("tray").value;
             var Day = document.getElementById("day").value;
             var Month = document.getElementById("month").value;
             var Year = document.getElementById("year").value;
             
-            document.getElementById("ketqua").innerHTML = 'Plant name: ' + name + '<br>Check: ' + accept  + "<br>Temp: " + temp +"<br>Hum: " + hum + "<br>Plating date: " + Day +" Month " + Month +" Year "+ Year;
-            
+            document.getElementById("ketqua").innerHTML = 'Plant name: ' + name + '<br>Check: ' + accept  + "<br>Temp: " + temp +"<br>Hum: " + hum + "<br>Number Tray: "+ Tray + "<br> Plating date: " + Day +" Month " + Month +" Year "+ Year;
+
+
+          
             if (name === "") {
                 alert("Please enter the NAME of the plant");
                 

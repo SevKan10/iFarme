@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Display Data</title>
+</head>
+<body>
+    <div id="displayData"></div>
+
+    <script>
+        // Lấy dữ liệu đã lưu từ localStorage
+        var storedData = JSON.parse(localStorage.getItem('formData'));
+
+        if (storedData) {
+            var displayDiv = document.getElementById('displayData');
+            displayDiv.innerHTML = 'Tên cây: ' + storedData.name + '<br>Đồng ý: ' + (storedData.accept ? 'Có' : 'Không') + "<br>Nhiệt độ: " + storedData.temp + "<br>Độ ẩm: " + storedData.hum + "<br>Số khay: " + storedData.Tray + "<br>Ngày trồng: " + storedData.Day + " Tháng " + storedData.Month + " Năm " + storedData.Year;
+        } else {
+            var displayDiv = document.getElementById('displayData');
+            displayDiv.innerHTML = "Không có dữ liệu.";
+        }
+    </script>
+</body>
+</html>

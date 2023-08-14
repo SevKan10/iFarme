@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Page 1</title>
+</head>
+<body>
+    <h1>Page 1</h1>
+    <label for="value">Enter a value:</label>
+    <input type="text" id="value">
+    <button onclick="saveValue()">Save</button>
+    <script>
+        function saveValue() {
+            var value = document.getElementById('value').value;
+            // Send the value to ESP8266 using an HTTP POST request
+            fetch('/send-value', {
+                method: 'POST',
+                body: 'value=' + value,
+            })
+            .then(response => response.text())
+            .then(data => {
+                if (data === 'Value received successfully') {
+                    localStorage.setItem('myValue', value);
+                    window.location.href = 'testAdr2.html';  // Redirect to the second page
+                }
+            })
+            .catch(error => console.error('Error:', error));
+        }
+    </script>
+</body>
+</html>

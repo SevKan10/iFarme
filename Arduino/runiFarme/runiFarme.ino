@@ -11,7 +11,7 @@ const char MainPage[] PROGMEM = R"=====(
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>iFarme</title> 
+  <title>iFarme</title>   
   <style> 
       body {text-align:center;}
       
@@ -38,6 +38,7 @@ const char MainPage[] PROGMEM = R"=====(
   </style>
 </head>
 <body>
+  <marquee behavior=" scroll" direction="" scrollamount="4" bgcolor="green"> Giai Xuan High School </marquee>
   <script>
     function login() {
       var name = prompt("ADMIN:");
@@ -72,7 +73,7 @@ const char MainPage[] PROGMEM = R"=====(
                  <br><br><br><br><br><br><br><br><br>
         </h1> 
             <h5>
-                <a><i>Design by Giai Xuan's student</i></a><br>
+                <a><i>Design by Giai Xuan High School's student</i></a><br>
                 <a><i>Version 1.0.0</i></a>
 
             </h5>

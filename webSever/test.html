@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Input Data</title>
+</head>
+<body>
+    <h1>Add vegetables</h1>
+    <form>
+        <!-- Các trường nhập dữ liệu -->
+        <!-- ... (các trường nhập dữ liệu tương tự như trong ví dụ của bạn) -->
+        <button class="send" onclick="saveAndRedirect()">Send data</button>
+        <button class="re" type="button" onclick="tai_lai_trang()">Retype</button>
+    </form>
+
+    <script>
+        function saveAndRedirect() {
+            // Lấy dữ liệu từ các trường nhập dữ liệu
+            var name = document.getElementById("txtName").value;
+            var accept = document.getElementById("chAcpt").checked;
+            var temp = document.getElementById("txtTemp").value;
+            var hum = document.getElementById("txtHum").value;
+            var Tray = document.getElementById("tray").value;
+            var Day = document.getElementById("day").value;
+            var Month = document.getElementById("month").value;
+            var Year = document.getElementById("year").value;
+
+            // Lưu dữ liệu vào localStorage
+            var formData = {
+                name: name,
+                accept: accept,
+                temp: temp,
+                hum: hum,
+                Tray: Tray,
+                Day: Day,
+                Month: Month,
+                Year: Year
+            };
+            localStorage.setItem('formData', JSON.stringify(formData));
+
+            // Chuyển hướng đến trang hiển thị dữ liệu
+            window.location.href = 'display.html';
+        }
+
+        function tai_lai_trang() {
+            location.reload();
+        }
+    </script>
+</body>
+</html>

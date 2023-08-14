@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Tray 3</title>
+    <title>Tray 4</title>
 </head>
 <body>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.6.0/Chart.min.js"></script>
@@ -15,7 +15,7 @@
     <p>Humidity: <span id="humidity"></span>%</p>
     <p>Day: <span id="day"></span></p>
 
-
+ 
 
     </div>
     <script>
@@ -24,7 +24,7 @@
       let dayData = 0;
       
         let myChart = document.getElementById('myChart').getContext('2d');
-        // Global Options
+       
         Chart.defaults.global.defaultFontFamily = 'Lato';
         Chart.defaults.global.defaultFontSize = 18;
         Chart.defaults.global.defaultFontColor = '#777';
@@ -58,7 +58,7 @@
           options:{
             title:{
               display:true,
-              text:'Process plant tray 3',
+              text:'Process plant tray 4',
               fontSize:25
             },
             legend:{
@@ -81,25 +81,26 @@
             }
           }
         });
-// Hàm để cập nhật biểu đồ
-function updateChart() {
-  // Cập nhật dữ liệu trong biểu đồ
-  massPopChart.data.datasets[0].data = [tempData, humData, dayData];
-  massPopChart.update();
-}
 
-// Đặt dữ liệu mới khi nhận được từ ESP8266
-function receiveDataFromESP(newTemp, newHum, newDay) {
-  tempData = newTemp;
-  humData = newHum;
-  dayData = newDay;
-  document.getElementById('temperature') = newTemp;
-  document.getElementById('humidity') = newHum;
-  document.getElementById('day') = newDay;
-  updateChart(); // Cập nhật biểu đồ với dữ liệu mới
-}
+        // Hàm để cập nhật biểu đồ
+        function updateChart() {
+          // Cập nhật dữ liệu trong biểu đồ
+          massPopChart.data.datasets[0].data = [tempData, humData, dayData];
+          massPopChart.update();
+        }
 
-      </script>
+        // Đặt dữ liệu mới khi nhận được từ ESP8266
+        function receiveDataFromESP(newTemp, newHum, newDay) {
+          tempData = newTemp;
+          humData = newHum;
+          dayData = newDay;
+          document.getElementById('temperature') = newTemp;
+          document.getElementById('humidity') = newHum;
+          document.getElementById('day') = newDay;
+          updateChart(); // Cập nhật biểu đồ với dữ liệu mới
+        }
+
+      </script> 
            
     
 

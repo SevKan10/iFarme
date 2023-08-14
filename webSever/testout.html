@@ -34,23 +34,47 @@
             </tr>
         </h1>
             <tr>
-              <td><button class="button1" style="vertical-align:middle" onclick="window.location.href='dataTray2.html'"><span><b>Tray 1</b></span></button></td>
-              <td>name2</td>
+              <td><button class="button1" style="vertical-align:middle" onclick="window.location.href='dataTray1.html'"><span><b>Tray 1</b></span></button></td>
+              <td id="value-output1"></td>
             </tr>
             <tr>
-                <td><button class="button1" style="vertical-align:middle" onclick="window.location.href='dataTray3.html'"><span><b>Tray 2</b></span></button></td>
-                <td>name3</td>
+                <td><button class="button1" style="vertical-align:middle" onclick="window.location.href='dataTray2.html'"><span><b>Tray 2</b></span></button></td>
+                <td id="value-output2"></td>
             </tr>
             <tr>
-                <td><button class="button1" style="vertical-align:middle" onclick="window.location.href='dataTray4.html'"><span><b>Tray 3</b></span></button></td>
-                <td>name4</td>
+                <td><button class="button1" style="vertical-align:middle" onclick="window.location.href='dataTray3.html'"><span><b>Tray 3</b></span></button></td>
+                <td id="value-output3"></td>
             </tr>
             <tr>
                 <td><button class="button1" style="vertical-align:middle" onclick="window.location.href='dataTray4.html'"><span><b>Tray 4</b></span></button></td>
-                <td>name4</td>
+                <td id="value-output4"></td>
             </tr>
           </table>
     </table>
+    <script>
+      window.onload = function() {
+        // Get the value from localStorage
+        var value = localStorage.getItem('name1');
+        // Display the value on the page
+        var output = document.getElementById('value-output1');
+        output.innerText = value;
 
+        var value = localStorage.getItem('name2');
+        // Display the value on the page
+        var output = document.getElementById('value-output2');
+        output.innerText = value;
+
+        // Get the value from localStorage
+        var value = localStorage.getItem('name3');
+        // Display the value on the page
+        var output = document.getElementById('value-output3');
+        output.innerText = value;
+        
+        var value = localStorage.getItem('name4');
+        // Display the value on the page
+        var output = document.getElementById('value-output4');
+        output.innerText = value;
+      };
+    </script>
 </body>
 </html>

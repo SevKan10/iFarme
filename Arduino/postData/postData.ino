@@ -1,11 +1,13 @@
 #include <WiFi.h>
 #include <HTTPClient.h>
+#include <ESP8266WiFi.h>
+#include <ESP8266WebServer.h>
 const char* ssid = "Kênh Sáng Tạo Trẻ";
 const char* password = "dangkykenhsangtaotrenhe";
-const char* serverURL = "http://192.168.1.41/"; // Thay thế bằng URL của trang web nhận dữ liệu
-
+const char* serverURL = "http://192.168.1.2/"; // Thay thế bằng URL của trang web nhận dữ liệu
+WebServer webServer();
 void setup() {
-  Serial.begin(115200);
+  Serial.begin(9600);
   WiFi.begin(ssid, password);
   
   while (WiFi.status() != WL_CONNECTED) {

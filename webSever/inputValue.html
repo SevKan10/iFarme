@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script>
+      function submitValue() {
+        // Get the value entered by the user
+        var input = document.getElementById('txtName');
+        var value = input.value;
+        
+        localStorage.setItem('myValue', value);
+        
+        window.location.href = 'outputValue.html';//liên kết qua trang hiển thị
+      }
+    </script>
+  </head>
+  <body>
+    <h1>Page 1</h1>
+    <p>Enter a value:</p>
+    <input type="text" id="value-input">
+    <button onclick="submitValue()">Submit</button>
+  </body>
+</html>
