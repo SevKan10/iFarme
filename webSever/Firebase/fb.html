@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <!-- Include Firebase JavaScript SDK -->
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/8.6.8/firebase-database.js"></script>
+
+  <script>
+    // Initialize Firebase
+    const firebaseConfig = {// lấy trong phần project setting
+        apiKey: "AIzaSyDcwnDwysnt_iRw06jdzjC2DiEnGNF504M",
+        authDomain: "demoweb-174ea.firebaseapp.com",
+        databaseURL: "https://demoweb-174ea-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "demoweb-174ea",
+        storageBucket: "demoweb-174ea.appspot.com",
+        messagingSenderId: "449858198762",
+        appId: "1:449858198762:web:bceb9cebe9862cc612cb93"
+    };
+    firebase.initializeApp(firebaseConfig);
+
+    // Listen for data changes in Firebase
+    const dbRef = firebase.database().ref('sensor/value');
+    dbRef.on('value', (snapshot) => {
+      const value = snapshot.val();
+      document.getElementById('sensor-value').innerText = value;
+    });
+  </script>
+</head>
+<body>
+  <h1>Sensor Value: <span id="sensor-value">Loading...</span></h1>
+</body>
+</html>

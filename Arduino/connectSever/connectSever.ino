@@ -6,7 +6,7 @@ const char* ssid = "MINH KHA";
 const char* password = "0855508877";
 
 //Your Domain name with URL path or IP address with path
-String serverName = "http://192.168.1.11/dataTray5.html";
+String serverName = "https://sevkan10.github.io/testDeploy/dataTray1.html";
 unsigned long lastTime = 0;
 // Timer set to 10 minutes (600000)
 //unsigned long timerDelay = 600000;
