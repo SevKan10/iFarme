@@ -1,4 +1,3 @@
-#include <SD.h>
 #include <WiFi.h> 
 #include <WiFiClient.h> 
 #include "FirebaseESP32.h"

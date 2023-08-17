@@ -1,12 +1,15 @@
-#include <FirebaseESP32.h>
-#include <FirebaseESP32HTTPClient.h>
-#include <WiFi.h>
+#include "FirebaseESP32.h"
+#include "WiFi.h"
 
 const char* ssid = "MINH KHA";
-const char* password = "0855508877";
-FirebaseData firebaseData;
+const char* password = "0855508877"; 
 
+#define FIREBASE_HOST "demoweb-174ea/database/demoweb-174ea-default-rtdb/data/~2F" //2 cái này lấy trong FB nhé
+#define FIREBASE_AUTH "MDPTT0HTtkNjWu6dR1YoPU5i5mX7CfSlRSAusiNZ "
+
+FirebaseData firebaseData;
 void setup() {
+  Serial.begin(9600);
   WiFi.begin(ssid, password);
    while (WiFi.status() != WL_CONNECTED) {
     delay(500);
@@ -20,7 +23,7 @@ void setup() {
 
 void loop() {
   // Send data to Firebase
-  Firebase.setDouble(firebaseData, "sensor/value", 25.5);
+  Firebase.setDouble(firebaseData, "sensor/value", millis());
 
-  delay(5000); // Send data every 5 seconds
+  delay(100); // Send data every 5 seconds
 }
