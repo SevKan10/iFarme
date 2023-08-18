@@ -4,22 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Progress tracking</title>
-    <style>
-        body {text-align:center;}
-        .circle {
-            fill: #456BD9;
-            stroke: #0F1C3F;
-            stroke-width: 0.1875em;
-          }
-        body{
-            background-image: url('');
-        }
-        .button1 {  display: inline-block;  border-radius: 4px;  background-color: rgb(243, 243, 66);  border: none;  color: black;  text-align: center;  font-size: 16px;  padding: 20px;  width: 200px;  transition: all 0.5s;  cursor: pointer;  margin: 5px;}
-        .button1 span {  cursor: pointer;  display: inline-block;  position: relative;  transition: 0.5s;}
-        .button1 span:after {  content: '\00bb';  position: absolute;  opacity: 0;  top: 0;  right: -20px;  transition: 0.5s;}
-        .button1:hover span {  padding-right: 25px;}
-        .button1:hover span:after {  opacity: 1;  right: 0;}
-    </style> 
+    <link rel="stylesheet" type="text/css" href="flow.css">
 </head>
 <body>
     <font style="color: red;"
@@ -51,25 +36,6 @@
             </tr>
           </table>
     </table>
-    <script>
-      window.onload = function() {
-        //chậu1
-        var value = localStorage.getItem('name1');
-        var output = document.getElementById('value-output1');
-        output.innerText = value;
-        //chậu2
-        var value = localStorage.getItem('name2');
-        var output = document.getElementById('value-output2');
-        output.innerText = value;
-        //chậu3
-        var value = localStorage.getItem('name3');
-        var output = document.getElementById('value-output3');
-        output.innerText = value;
-        //chậu4
-        var value = localStorage.getItem('name4');
-        var output = document.getElementById('value-output4');
-        output.innerText = value;
-      };
-    </script>
+    <script src="flow.js"></script>
 </body>
 </html>

@@ -1,14 +1,11 @@
 #include <WiFi.h>
 #include <FirebaseESP32.h>
 
-
 #define FIREBASE_HOST "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app/"
 #define FIREBASE_AUTH "D87Btza8MgiifClqiT3fL7DdQ3rtO8cVQqRKY6BY"
 #define WIFI_SSID "MINH KHA"
 #define WIFI_PASSWORD "0855508877"
 
-
-//Define FirebaseESP32 data object
 FirebaseData firebaseData;
 FirebaseJson json;
 int Vrdata = 0;
@@ -57,14 +54,16 @@ void loop() {
   int Sdata = random(10, 100);
   Serial.println(Sdata);
   delay(100);
-  json.clear();
+
+  json.clear();//để xóa nút giá trị cũ
   json.set("/value", Sdata);
   Firebase.updateNode(firebaseData, "/test", json);
 
   int Xdata = random(0, 50);
   Serial.println(Xdata);
   delay(100);
-  json.clear(); 
-  json.set("/value1", Xdata);
+
+  json.clear();//để xóa nút giá trị cũ 
+  json.set("/value1", Xdata);//set nút để lưu giá trị
   Firebase.updateNode(firebaseData, "/test1", json);
 }

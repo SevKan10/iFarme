@@ -4,54 +4,11 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>iFarme</title>   
-  <style> 
-      body {text-align:center;}
-      
-        .button1 {  display: inline-block;  border-radius: 4px;  background-color: lightblue;  border: none;  color: black;  text-align: center;  font-size: 16px;  padding: 20px;  width: 200px;  transition: all 0.5s;  cursor: pointer;  margin: 5px;}
-        .button1 span {  cursor: pointer;  display: inline-block;  position: relative;  transition: 0.5s;}
-        .button1 span:after {  content: '\00bb';  position: absolute;  opacity: 0;  top: 0;  right: -20px;  transition: 0.5s;}
-        .button1:hover span {  padding-right: 25px;}
-        .button1:hover span:after {  opacity: 1;  right: 0;}
-      
-        .button2 {  display: inline-block;  border-radius: 4px;  background-color: orange;  border: none;  color: black;  text-align: center;  font-size: 16px;  padding: 20px;  width: 200px;  transition: all 0.5s;  cursor: pointer;  margin: 5px;}
-        .button2 span {  cursor: pointer;  display: inline-block;  position: relative;  transition: 0.5s;}
-        .button2 span:after {  content: '\00bb';  position: absolute;  opacity: 0;  top: 0;  right: -20px;  transition: 0.5s;}
-        .button2:hover span {  padding-right: 25px;}
-        .button2:hover span:after {  opacity: 1;  right: 0;}
-      
-        h1{color:#003399;}
-        .h5{
-         text-align: right;
-        }
-        body{
-          background-image: url('https://4.bp.blogspot.com/-myf1pNS0qco/V2OFtW0vIpI/AAAAAAAAAcw/j4l7ZVbze6I051z-gTW3rrLO7sWO-J0bgCLcB/s1600/Hinh-Nen-Mam-Cay-Hinh-Nen-May-Tinh-Dep-Nhat-HoangTueBlog-7.jpg');
-        }
-    
-  </style>
+  <link rel="stylesheet" type="text/css" href="index.css">
 </head>
 <body>
   <marquee behavior=" scroll" direction="" scrollamount="4" bgcolor="green"> Giai Xuan High School </marquee>
-  <script>
-    function login() {
-      var name = prompt("ADMIN:");
-      var pass = prompt("Password:");
-        //-----------------đổi tên và mật khẩu
-        var user ="khang"; 
-        var pin ="1234";
-        //-----------------------------------
-      if (name === user && pass === pin) {
-        showMainContent(); 
-      } else {
-        alert("Wrong");
-        window.location.href = "no.html";
-      }
-    }
-    function showMainContent() {
-      var mainContent = document.getElementById("main-content");
-    }
-
-    login();
-  </script>
+  <script src="index.js"></script>
 
   <div id="main-content" >
     <p>
