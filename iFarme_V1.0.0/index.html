@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Contact Messages | Firebase</title>
+    <title>Login | iFarme</title>
     <style>
       *{
         margin: 0;
@@ -114,7 +114,6 @@
 <body>
   <div class="container">
       <form action="" id="connectWeb" onsubmit="return false;"> <!-- Đặt onsubmit="return false;" để ngăn việc gửi mặc định -->
-          <div class="alert">Your message sent</div>
 
           <div class="inputBox">
               <input type="text" id="name" placeholder="Enter ADMIN" />
@@ -139,7 +138,7 @@
           //-----------------------------------
           if (Name === user && Pass === pin) {
               console.log("Login successful");
-              window.location.href = "index.html";
+              window.location.href = "logined.html";
           } else {
               alert("Wrong");
           }
