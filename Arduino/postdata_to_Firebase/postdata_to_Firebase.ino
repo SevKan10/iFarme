@@ -4,8 +4,8 @@
 const char* ssid = "MINH KHA";
 const char* password = "0855508877"; 
 
-#define FIREBASE_HOST "demoweb-174ea/database/demoweb-174ea-default-rtdb/data/~2F" //2 cái này lấy trong FB nhé
-#define FIREBASE_AUTH "MDPTT0HTtkNjWu6dR1YoPU5i5mX7CfSlRSAusiNZ "
+#define FIREBASE_HOST "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app/"
+#define FIREBASE_AUTH "D87Btza8MgiifClqiT3fL7DdQ3rtO8cVQqRKY6BY"
 
 FirebaseData firebaseData;
 void setup() {
@@ -23,7 +23,7 @@ void setup() {
 
 void loop() {
   // Send data to Firebase
-  Firebase.setDouble(firebaseData, "sensor/value", millis());
+  Firebase.setDouble(firebaseData, "test/value", millis());
 
-  delay(100); // Send data every 5 seconds
+  delay(100);
 }
