@@ -137,10 +137,12 @@
           var pin = "1234";
           //-----------------------------------
           if (Name === user && Pass === pin) {
-              console.log("Login successful");
-              window.location.href = "logined.html";
+            isLoggedIn = true;
+            console.log("Login successful");
+            window.location.href = "logined.html";
+            alert("Logined");
           } else {
-              alert("Wrong");
+                alert("Wrong");
           }
       }
   </script>
