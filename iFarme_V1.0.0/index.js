@@ -9,7 +9,7 @@ function login() {
       showMainContent(); 
     } else {
       alert("Wrong");
-      window.location.href = "no.html";
+      window.location.href = "";
     }
   }
   function showMainContent() {
