@@ -55,7 +55,7 @@ void loop() {
   Serial.println(Sdata);
   delay(100);
 
-  json.clear();//để xóa nút giá trị cũ
+  json.clear();  //để xóa nút giá trị cũ
   json.set("/value", Sdata);
   Firebase.updateNode(firebaseData, "/test", json);
 
@@ -63,7 +63,7 @@ void loop() {
   Serial.println(Xdata);
   delay(100);
 
-  json.clear();//để xóa nút giá trị cũ 
-  json.set("/value1", Xdata);//set nút để lưu giá trị
+  json.clear();                //để xóa nút giá trị cũ
+  json.set("/value1", Xdata);  //set nút để lưu giá trị
   Firebase.updateNode(firebaseData, "/test1", json);
 }
