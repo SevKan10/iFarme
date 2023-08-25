@@ -6,7 +6,10 @@
     <title>Add vegetable</title>
 
     <link rel="stylesheet" type="text/css" href="add.css">
-    
+
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
 </head>
 <body>
 
@@ -102,13 +105,12 @@
         </label>
     </p>
 
-    <button class="send"onclick="checkDangky(),submitValue()">Send data</button>
+    <button class="send" type="button" onclick="checkDangky();submitValue()">Send data</button>
     <button class="re" type="button" onclick="tai_lai_trang()">Retype</button>
 
 
     <div id="ketqua"></div>
 
     <script src="add.js"></script>
-   
 </body>
 </html>

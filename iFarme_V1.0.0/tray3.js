@@ -7,16 +7,18 @@ const firebaseConfig = {
     messagingSenderId: "124564135650",
     appId: "1:124564135650:web:e969f361eb2d8611fb48bb",
     measurementId: "G-V3SCKCZMV9"
-  }
+}
 
 const app = firebase.initializeApp(firebaseConfig);
 
 const value = firebase.database();
-const dataValue = value.ref('Tray4');
+const dataValue = value.ref('Tray3');
 
 var tempData = [];
 var humData = [];
 var dayData = [];
+
+var chart; // Biến global để lưu biểu đồ
 
 // Hàm để cập nhật biểu đồ theo thời gian thực
 function updateRealTimeChart(temperatureData, humidityData, dayData) {
@@ -27,43 +29,53 @@ function updateRealTimeChart(temperatureData, humidityData, dayData) {
         xValues.push(moment().subtract(temperatureData.length - 1 - i, "seconds").format("HH:mm:ss"));
     }
 
-    new Chart("myChart", {
-        type: "line",
-        data: {
-            labels: xValues,
-            datasets: [
-                {
-                    label: 'Temperature',
-                    data: temperatureData,
-                    borderColor: "red",
-                    fill: false
-                },
-                {
-                    label: 'Humidity',
-                    data: humidityData,
-                    borderColor: "blue",
-                    fill: false
-                },
-                {
-                    label: 'Day',
-                    data: dayData,
-                    borderColor: "yellow",
-                    fill: false
-                }
-            ]
-        },
-        options: {
-            legend: {
-                display: true,
-                position: 'top'
+    // Nếu biểu đồ đã được tạo, cập nhật dữ liệu
+    if (chart) {
+        chart.data.labels = xValues;
+        chart.data.datasets[0].data = temperatureData;
+        chart.data.datasets[1].data = humidityData;
+        chart.data.datasets[2].data = dayData;
+        chart.update(); // Cập nhật biểu đồ
+    } else {
+        // Nếu biểu đồ chưa được tạo, tạo biểu đồ mới
+        chart = new Chart("myChart", {
+            type: "line",
+            data: {
+                labels: xValues,
+                datasets: [
+                    {
+                        label: 'Temperature',
+                        data: temperatureData,
+                        borderColor: "red",
+                        fill: false
+                    },
+                    {
+                        label: 'Humidity',
+                        data: humidityData,
+                        borderColor: "blue",
+                        fill: false
+                    },
+                    {
+                        label: 'Day',
+                        data: dayData,
+                        borderColor: "yellow",
+                        fill: false
+                    }
+                ]
             },
-            title: {
-                display: true,
-                text: "Plant Process Tray 3",
-                fontSize: 25
+            options: {
+                legend: {
+                    display: true,
+                    position: 'top'
+                },
+                title: {
+                    display: true,
+                    text: "Plant Process Tray 3",
+                    fontSize: 25
+                }
             }
-        }
-    });
+        });
+    }
 }
 
 dataValue.once('value')

@@ -4,9 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Lưu Dữ Liệu vào Firebase</title>
-    <!-- Cài đặt Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+    
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
 </head>
 <body>
     <h1>Lưu Dữ Liệu vào Firebase</h1>
@@ -31,14 +32,11 @@
             <option value="4">Khay 4</option>
         </select><br>
 
-        <button type="button" onclick="saveToFirebase()">Lưu vào Firebase</button>
+        <button type="button" onclick="saveToFirebase()">Lưu</button>
     </form>
-
-    <div id="ketqua"></div>
 
     <script>
         // Thay thế thông tin cấu hình Firebase của bạn ở đây
-       
         const firebaseConfig = {
             apiKey: "AIzaSyDNVI6MfggzOLtCoP1uVAvajd9lKtS22LU",
             authDomain: "ifarme-df868.firebaseapp.com",
@@ -78,24 +76,11 @@
             database.ref(firebasePath).push(dataToSave)
                 .then(function () {
                     console.log("Dữ liệu đã được lưu vào Firebase.");
-                    // Hiển thị thông tin đã nhập
-                    displayEnteredInformation(dataToSave);
+                    // Sau khi lưu xong, bạn có thể thực hiện các hành động khác, chẳng hạn như chuyển hướng người dùng.
                 })
                 .catch(function (error) {
                     console.error("Lỗi khi lưu dữ liệu vào Firebase: " + error);
                 });
-        }
-
-        // Hàm hiển thị thông tin đã nhập
-        function displayEnteredInformation(data) {
-            var info = 'Entered information is:<br>';
-            info += 'Plant name: ' + data.name + '<br>';
-            info += 'Chấp nhận: ' + (data.accept ? 'Đã chấp nhận' : 'Không chấp nhận') + '<br>';
-            info += 'Nhiệt độ: ' + data.temp + '<br>';
-            info += 'Độ ẩm: ' + data.hum + '<br>';
-            info += 'Number Tray: ' + data.tray;
-
-            document.getElementById("ketqua").innerHTML = info;
         }
     </script>
 </body>
