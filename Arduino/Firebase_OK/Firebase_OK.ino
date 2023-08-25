@@ -5,19 +5,21 @@
 #define FIREBASE_AUTH "D87Btza8MgiifClqiT3fL7DdQ3rtO8cVQqRKY6BY"
 #define WIFI_SSID "MINH KHA"
 #define WIFI_PASSWORD "0855508877"
+//-----------------------------------------------------------------------------------------------
 
+//------------------------------------------------------------------------------------------------
 FirebaseData firebaseData;
 FirebaseJson json;
-int Vrdata = 0;
+long unsigned int myTime = 0;
+void setup() 
+{
 
-void setup() {
-
-  Serial.begin(9600);
-
+  Serial.begin(9600); 
 
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   Serial.print("Connecting to Wi-Fi");
-  while (WiFi.status() != WL_CONNECTED) {
+  while (WiFi.status() != WL_CONNECTED) 
+  {
     Serial.print(".");
     delay(300);
   }
@@ -49,21 +51,19 @@ void setup() {
   Serial.println("Connected...");
 }
 
-void loop() {
+void loop() 
+{
+  if (millis()-myTime>=5000)
+  {
+    float t = random(10,50);
+    float h = random(50,100);
+    int day = 10;
+    json.clear();        //để xóa nút giá trị cũ
+    json.set("/Temp", t);  //set nút để lưu giá trị
+    json.set("/Hum", h);  //set nút để lưu giá trị
+    json.set("/Day", day);  //set nút để lưu giá trị
+    Firebase.updateNode(firebaseData, "/Data", json);
 
-  int Sdata = random(10, 100);
-  Serial.println(Sdata);
-  delay(100);
-
-  json.clear();  //để xóa nút giá trị cũ
-  json.set("/value", Sdata);
-  Firebase.updateNode(firebaseData, "/test", json);
-
-  int Xdata = random(0, 50);
-  Serial.println(Xdata);
-  delay(100);
-
-  json.clear();                //để xóa nút giá trị cũ
-  json.set("/value1", Xdata);  //set nút để lưu giá trị
-  Firebase.updateNode(firebaseData, "/test1", json);
+    myTime = millis();
+  }
 }
