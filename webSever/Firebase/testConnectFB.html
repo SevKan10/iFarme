@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Firebase Realtime Database Example</title>
+  <!-- Add Firebase SDK -->
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
+  <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-database.js"></script>
+</head>
+<body>
+  <h1>Firebase Realtime Database Example</h1>
+
+  <script>
+    // Initialize Firebase with your configuration
+    const firebaseConfig = {
+        apiKey: "AIzaSyDNVI6MfggzOLtCoP1uVAvajd9lKtS22LU",
+        authDomain: "ifarme-df868.firebaseapp.com",
+        databaseURL: "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app",
+        projectId: "ifarme-df868",
+        storageBucket: "ifarme-df868.appspot.com",
+        messagingSenderId: "124564135650",
+        appId: "1:124564135650:web:e969f361eb2d8611fb48bb",
+        measurementId: "G-V3SCKCZMV9"
+      }
+    firebase.initializeApp(firebaseConfig);
+
+    // Reference to your database
+    const database = firebase.database();
+
+    // Reference to the "test" node
+    const testRef = database.ref('test');
+
+    // Reference to the "test1" node
+    const test1Ref = database.ref('test1');
+
+    // Read data from the "test" node
+    testRef.on('value', (snapshot) => {
+      const data = snapshot.val();
+      console.log("Data from 'test' node:", data);
+    });
+
+    // Read data from the "test1" node
+    test1Ref.on('value1', (snapshot) => {
+      const data = snapshot.val();
+      console.log("Data from 'test1' node:", data);
+    })
+  </script>
+</body>
+</html>

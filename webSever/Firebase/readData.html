@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Read Data</title>
+</head>
+<body>
+    <h1>data is:</h1>
+    <h1 id="data"><span></span></h1>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/8.0.0/firebase-database.js"></script>
+
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNVI6MfggzOLtCoP1uVAvajd9lKtS22LU",
+            authDomain: "ifarme-df868.firebaseapp.com",
+            databaseURL: "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "ifarme-df868",
+            storageBucket: "ifarme-df868.appspot.com",
+            messagingSenderId: "124564135650",
+            appId: "1:124564135650:web:e969f361eb2d8611fb48bb",
+            measurementId: "G-V3SCKCZMV9"
+          }
+
+        const app = firebase.initializeApp(firebaseConfig);
+
+        const database = firebase.database();
+        const dataRef = database.ref('test/value'); 
+
+
+        dataRef.once('value')
+            .then((snapshot) => {
+                const data = snapshot.val();
+                const dataElement = document.getElementById("data");
+                dataElement.textContent = data; 
+            })
+            .catch((error) => {
+                console.error("Error reading data: ", error);
+            });
+    </script>
+</body>
+</html>

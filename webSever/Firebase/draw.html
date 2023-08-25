@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Realtime Temperature</title>
+    <!-- Include Firebase JavaScript SDK -->
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.1.1/firebase-database.js"></script>
+</head>
+<body>
+    <h1>Temperature is: <span id="temperature">Loading...</span>°C</h1>
+
+    <script>
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyDNVI6MfggzOLtCoP1uVAvajd9lKtS22LU",
+            authDomain: "ifarme-df868.firebaseapp.com",
+            databaseURL: "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "ifarme-df868",
+            storageBucket: "ifarme-df868.appspot.com",
+            messagingSenderId: "124564135650",
+            appId: "1:124564135650:web:e969f361eb2d8611fb48bb",
+            measurementId: "G-V3SCKCZMV9"
+          }
+
+        // Initialize Firebase
+        const app = firebase.initializeApp(firebaseConfig);
+
+        // Reference to the temperature value in Firebase
+        const temperatureRef = firebase.database().ref('test/value');
+
+        // Function to update the temperature on the web page
+        function updateTemperature(temperature) {
+            const temperatureElement = document.getElementById("temperature");
+            temperatureElement.textContent = temperature + "°C";
+        }
+
+        // Listen for new child added
+        temperatureRef.on('child_added', (snapshot) => {
+            const temperature = snapshot.val();
+            if (temperature !== null) {
+                updateTemperature(temperature);
+            } else {
+                updateTemperature("No data available");
+            }
+        });
+    </script>
+</body>
+</html>

@@ -1,4 +1,4 @@
-// đặt tên cây
+// ------------------------------------------------------đặt tên cây
 function submitValue() {
     var Tray = document.getElementById('tray').value;
     
@@ -32,7 +32,7 @@ function submitValue() {
     }
     
 }
-// in ra thông tin
+// -----------------------------------------------------in ra thông tin
 function checkDangky(){
     var name = document.getElementById("txtName").value;
     var accept = document.getElementById("chAcpt").checked;
@@ -45,7 +45,7 @@ function checkDangky(){
     
     document.getElementById("ketqua").innerHTML = 'Entered information is:<br>' +'Plant name: ' + name + '<br>Check: ' + accept  + "<br>Temp: " + temp +"<br>Hum: " + hum + "<br>Number Tray: "+ Tray + "<br> Plating date: " + Day +" Month " + Month +" Year "+ Year;
 
-  //thông báo nhập thiếu
+  // ----------------------------------------------------thông báo nhập thiếu
     if (name === "") {
         alert("Please enter the NAME of the plant");
         
@@ -66,7 +66,7 @@ function checkDangky(){
         alert("Please enter the YEAR");
     }
 }
-   // đổi khung tên cây
+   // ------------------------------------------------------------đổi khung tên cây
    function doico1(){
         document.getElementById('txtName').style.color="black";
         document.getElementById('txtName').style.fontSize="30px";
@@ -75,7 +75,7 @@ function checkDangky(){
         document.getElementById('txtName').style.color="red";
         document.getElementById('txtName').style.fontSize="15px";
     }
-    //đổi khung nhiệt
+    // ----------------------------------------------------------đổi khung nhiệt
     function doico2(){
         document.getElementById('txtTemp').style.color="black";
         document.getElementById('txtTemp').style.fontSize="30px";
@@ -84,7 +84,7 @@ function checkDangky(){
         document.getElementById('txtTemp').style.color="red";
         document.getElementById('txtTemp').style.fontSize="15px";
     }    
-    //đổi khung độ ẩm
+    // ----------------------------------------------------------đổi khung độ ẩm
     function doico3(){
         document.getElementById('txtHum').style.color="black";
         document.getElementById('txtHum').style.fontSize="30px";

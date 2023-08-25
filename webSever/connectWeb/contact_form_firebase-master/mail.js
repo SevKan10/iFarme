@@ -1,20 +1,20 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyDC5wI0d2s3wyxur0I6N1ZwOMhRb_0L5Vs",
-  authDomain: "connect-web-e0c6b.firebaseapp.com",
-  databaseURL: "https://connect-web-e0c6b-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "connect-web-e0c6b",
-  storageBucket: "connect-web-e0c6b.appspot.com",
-  messagingSenderId: "34003392367",
-  appId: "1:34003392367:web:f684b1de93c9a17856ba9a"
+  apiKey: "AIzaSyDcwnDwysnt_iRw06jdzjC2DiEnGNF504M",
+  authDomain: "demoweb-174ea.firebaseapp.com",
+  databaseURL: "https://demoweb-174ea-default-rtdb.asia-southeast1.firebasedatabase.app",
+  projectId: "demoweb-174ea",
+  storageBucket: "demoweb-174ea.appspot.com",
+  messagingSenderId: "449858198762",
+  appId: "1:449858198762:web:bceb9cebe9862cc612cb93"
 };
 
 // initialize firebase
 firebase.initializeApp(firebaseConfig);
 
 // reference your database
-var contactFormDB = firebase.database().ref("connectWeb");
+var contactFormDB = firebase.database().ref("contactForm");
 
-document.getElementById("connectWeb").addEventListener("submit", submitForm);
+document.getElementById("contactForm").addEventListener("submit", submitForm);
 
 function submitForm(e) {
   e.preventDefault();

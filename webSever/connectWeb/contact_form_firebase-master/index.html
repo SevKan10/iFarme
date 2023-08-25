@@ -1,29 +1,27 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Contact Messages | Firebase</title>
-    <link rel="stylesheet" href="./styles.css">
+    <link rel="stylesheet" href="styles.css">
 </head>
-
 <body>
     <div class="container">
-        <form action="" id="connectWeb">
+        <form action="" id="contactForm">
             <div class="alert">Your message sent</div>
 
             <div class="inputBox">
-                <input type="text" id="name" placeholder="Your name...." />
+                <input type="text" id="name" placeholder="Your name...." required />
             </div>
 
             <div class="inputBox">
-                <input type="email" id="emailid" placeholder="Your Email....." />
+                <input type="email" id="emailid" placeholder="Your Email....." required />
             </div>
 
             <div class="inputBox">
-                <textarea id="msgContent" cols="30" rows="10" placeholder="Message"></textarea>
+                <textarea id="msgContent" cols="30" rows="10" placeholder="Message" required></textarea>
             </div>
 
             <div class="inputBox">
@@ -32,8 +30,63 @@
         </form>
     </div>
 
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/firebase/7.14.1-0/firebase.js"></script>
-    <script src="./mail.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-app.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/9.0.1/firebase-database.js"></script>
+    <script>
+        const firebaseConfig = {
+            apiKey: "AIzaSyDC5wI0d2s3wyxur0I6N1ZwOMhRb_0L5Vs",
+            authDomain: "connect-web-e0c6b.firebaseapp.com",
+            databaseURL: "https://connect-web-e0c6b-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "connect-web-e0c6b",
+            storageBucket: "connect-web-e0c6b.appspot.com",
+            messagingSenderId: "34003392367",
+            appId: "1:34003392367:web:f684b1de93c9a17856ba9a"
+          };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        
+        // Reference your database
+        const database = firebase.database();
+        const contactFormDB = database.ref("contactForm");
+        
+        document.getElementById("contactForm").addEventListener("submit", submitForm);
+        
+        function submitForm(e) {
+            e.preventDefault();
+        
+            const name = getElementVal("name");
+            const emailid = getElementVal("emailid");
+            const msgContent = getElementVal("msgContent");
+        
+            saveMessages(name, emailid, msgContent);
+        
+            // Show alert
+            const alertDiv = document.querySelector(".alert");
+            alertDiv.style.display = "block";
+        
+            // Remove the alert
+            setTimeout(() => {
+                alertDiv.style.display = "none";
+            }, 3000);
+        
+            // Reset the form
+            document.getElementById("contactForm").reset();
+        }
+        
+        function saveMessages(name, emailid, msgContent) {
+            const newContactForm = contactFormDB.push();
+        
+            newContactForm.set({
+                name: name,
+                emailid: emailid,
+                msgContent: msgContent
+            });
+        }
+        
+        function getElementVal(id) {
+            return document.getElementById(id).value;
+        }
+    </script>
 </body>
-
 </html>
