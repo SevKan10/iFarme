@@ -36,13 +36,8 @@ void setup()
   //tiny, small, medium, large and unlimited.
   //Size and its write timeout e.g. tiny (1s), small (10s), medium (30s) and large (60s).
   Firebase.setwriteSizeLimit(firebaseData, "tiny");
-
-  /*
-  This option allows get and delete functions (PUT and DELETE HTTP requests) works for device connected behind the
-  Firewall that allows only GET and POST requests.
-  
   Firebase.enableClassicRequest(firebaseData, true);
-  */
+  
 
   //String path = "/data";
 
@@ -57,13 +52,17 @@ void loop()
   {
     float t = random(10,50);
     float h = random(50,100);
-    int day = 10;
+    int day = random(10,30);
     json.clear();        //để xóa nút giá trị cũ
     json.set("/Temp", t);  //set nút để lưu giá trị
     json.set("/Hum", h);  //set nút để lưu giá trị
     json.set("/Day", day);  //set nút để lưu giá trị
-    Firebase.updateNode(firebaseData, "/Data", json);
+    Firebase.updateNode(firebaseData, "/Tray1", json);
+    Firebase.updateNode(firebaseData, "/Tray2", json);
+    Firebase.updateNode(firebaseData, "/Tray3", json);
+    Firebase.updateNode(firebaseData, "/Tray4", json);
 
     myTime = millis();
   }
+
 }
