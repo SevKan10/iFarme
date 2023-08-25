@@ -5,12 +5,10 @@
 #define FIREBASE_AUTH "D87Btza8MgiifClqiT3fL7DdQ3rtO8cVQqRKY6BY"
 #define WIFI_SSID "MINH KHA"
 #define WIFI_PASSWORD "0855508877"
-//-----------------------------------------------------------------------------------------------
 
-//------------------------------------------------------------------------------------------------
 FirebaseData firebaseData;
 FirebaseJson json;
-long unsigned int myTime = 0;
+
 void setup() 
 {
 
@@ -48,8 +46,7 @@ void setup()
 
 void loop() 
 {
-  if (millis()-myTime>=5000)
-  {
+
     float t = random(10,50);
     float h = random(50,100);
     int day = random(10,30);
@@ -61,8 +58,7 @@ void loop()
     Firebase.updateNode(firebaseData, "/Tray2", json);
     Firebase.updateNode(firebaseData, "/Tray3", json);
     Firebase.updateNode(firebaseData, "/Tray4", json);
-
-    myTime = millis();
-  }
+    delay(2000);
+ 
 
 }
