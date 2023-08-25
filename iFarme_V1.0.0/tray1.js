@@ -1,40 +1,62 @@
 const firebaseConfig = {
-  apiKey: "AIzaSyDNVI6MfggzOLtCoP1uVAvajd9lKtS22LU",
-  authDomain: "ifarme-df868.firebaseapp.com",
-  databaseURL: "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app",
-  projectId: "ifarme-df868",
-  storageBucket: "ifarme-df868.appspot.com",
-  messagingSenderId: "124564135650",
-  appId: "1:124564135650:web:e969f361eb2d8611fb48bb",
-  measurementId: "G-V3SCKCZMV9"
-}
+    apiKey: "AIzaSyDNVI6MfggzOLtCoP1uVAvajd9lKtS22LU",
+    authDomain: "ifarme-df868.firebaseapp.com",
+    databaseURL: "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "ifarme-df868",
+    storageBucket: "ifarme-df868.appspot.com",
+    messagingSenderId: "124564135650",
+    appId: "1:124564135650:web:e969f361eb2d8611fb48bb",
+    measurementId: "G-V3SCKCZMV9"
+  }
 
 const app = firebase.initializeApp(firebaseConfig);
 
 const value = firebase.database();
-const dataValue = value.ref('Data'); // Thay 'test/value' bằng 'Data'
+const dataValue = value.ref('Tray1');
 
-var tempData = 0;
-var humData = 0;
-var dayData = 0;
+var tempData = [];
+var humData = [];
+var dayData = [];
 
-// Hàm để cập nhật biểu đồ
-function updateChart(temperature, humidity, day) {
-    var xValues = ["Temperature", "Humidity", "Day"];
-    var barColors = ["orange", "blue", "yellow"];
+// Hàm để cập nhật biểu đồ theo thời gian thực
+function updateRealTimeChart(temperatureData, humidityData, dayData) {
+    var xValues = [];
+    var currentTime = moment().format("HH:mm:ss");
 
-    // Cập nhật dữ liệu biểu đồ
+    for (let i = 0; i < temperatureData.length; i++) {
+        xValues.push(moment().subtract(temperatureData.length - 1 - i, "seconds").format("HH:mm:ss"));
+    }
+
     new Chart("myChart", {
-        type: "bar",
+        type: "line",
         data: {
             labels: xValues,
-            datasets: [{
-                backgroundColor: barColors,
-                data: [temperature, humidity, day]
-            }]
+            datasets: [
+                {
+                    label: 'Temperature',
+                    data: temperatureData,
+                    borderColor: "red",
+                    fill: false
+                },
+                {
+                    label: 'Humidity',
+                    data: humidityData,
+                    borderColor: "blue",
+                    fill: false
+                },
+                {
+                    label: 'Day',
+                    data: dayData,
+                    borderColor: "yellow",
+                    fill: false
+                }
+            ]
         },
         options: {
-            legend: { display: false },
+            legend: {
+                display: true,
+                position: 'top'
+            },
             title: {
                 display: true,
                 text: "Plant Process Tray 1",
@@ -56,44 +78,47 @@ dataValue.once('value')
         var dayElement = document.getElementById("day");
         dayElement.textContent = data.Day; // Lấy giá trị ngày từ 'Day' trong 'Data'
 
-        tempData = parseFloat(data.Temp);
-        humData = parseFloat(data.Hum);
-        dayData = parseInt(data.Day);
+        tempData.push(parseFloat(data.Temp));
+        humData.push(parseFloat(data.Hum));
+        dayData.push(parseFloat(data.Day));
 
-        if (!isNaN(tempData) && !isNaN(humData) && !isNaN(dayData)) {
-            console.log("Temperature data:", tempData);
-            console.log("Humidity data:", humData);
-            console.log("Day data:", dayData);
+        if (!isNaN(tempData[0]) && !isNaN(humData[0]) && !isNaN(dayData[0])) {
+            console.log("Temperature data:", tempData[0]);
+            console.log("Humidity data:", humData[0]);
+            console.log("Day data:", dayData[0]);
         } else {
             console.error("Invalid data");
         }
 
-        updateChart(tempData, humData, dayData); // Cập nhật biểu đồ ban đầu
+        updateRealTimeChart(tempData, humData, dayData); // Cập nhật biểu đồ ban đầu
     })
     .catch((error) => {
         console.error("Error reading data: ", error);
     });
 
-const temperatureRef = firebase.database().ref('Data/Temp'); // Theo dõi nhiệt độ
-const humidityRef = firebase.database().ref('Data/Hum'); // Theo dõi độ ẩm
-const dayRef = firebase.database().ref('Data/Day'); // Theo dõi ngày
+const temperatureRef = firebase.database().ref('Tray1/Temp'); // Theo dõi nhiệt độ
+const humidityRef = firebase.database().ref('Tray1/Hum'); // Theo dõi độ ẩm
+const dayRef = firebase.database().ref('Tray1/Day'); // Theo dõi ngày
 
 function updateTemperature(temperature) {
     const temperatureElement = document.getElementById("temperature");
     temperatureElement.textContent = temperature;
-    updateChart(temperature, humData, dayData); // Cập nhật biểu đồ khi có sự thay đổi nhiệt độ
+    tempData.push(parseFloat(temperature));
+    updateRealTimeChart(tempData, humData, dayData);
 }
 
 function updateHumidity(humidity) {
     const humidityElement = document.getElementById("humidity");
     humidityElement.textContent = humidity;
-    updateChart(tempData, humidity, dayData); // Cập nhật biểu đồ khi có sự thay đổi độ ẩm
+    humData.push(parseFloat(humidity));
+    updateRealTimeChart(tempData, humData, dayData);
 }
 
 function updateDay(day) {
     const dayElement = document.getElementById("day");
     dayElement.textContent = day;
-    updateChart(tempData, humData, day); // Cập nhật biểu đồ khi có sự thay đổi ngày
+    dayData.push(parseFloat(day));
+    updateRealTimeChart(tempData, humData, dayData);
 }
 
 // Đọc giá trị nhiệt độ, độ ẩm và ngày

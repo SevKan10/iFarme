@@ -1,80 +1,150 @@
-var tempData = 0;
-var humData = 0;
-var dayData = 0;
+const firebaseConfig = {
+    apiKey: "AIzaSyDNVI6MfggzOLtCoP1uVAvajd9lKtS22LU",
+    authDomain: "ifarme-df868.firebaseapp.com",
+    databaseURL: "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app",
+    projectId: "ifarme-df868",
+    storageBucket: "ifarme-df868.appspot.com",
+    messagingSenderId: "124564135650",
+    appId: "1:124564135650:web:e969f361eb2d8611fb48bb",
+    measurementId: "G-V3SCKCZMV9"
+  }
 
-  let myChart = document.getElementById('myChart').getContext('2d');
+const app = firebase.initializeApp(firebaseConfig);
 
-  Chart.defaults.global.defaultFontFamily = 'Lato';
-  Chart.defaults.global.defaultFontSize = 18;
-  Chart.defaults.global.defaultFontColor = '#777';
+const value = firebase.database();
+const dataValue = value.ref('Tray2');
 
-  let massPopChart = new Chart(myChart, {
-    type:'bar', // bar, horizontalBar, pie, line, doughnut, radar, polarArea
-    data:{
-      labels:['Temp', 'Hum', 'Day'],
-      datasets:[{
-        label:'',
-        data:[
-        tempData,
-        humData,
-        dayData,
-        ],
-        backgroundColor:[
-          'rgba(255, 99, 132, 0.6)',
-          'rgba(54, 162, 235, 0.6)',
-          'rgba(255, 206, 86, 0.6)',
-          'rgba(75, 192, 192, 0.6)',
-          'rgba(153, 102, 255, 0.6)',
-          'rgba(255, 159, 64, 0.6)',
-          'rgba(255, 99, 132, 0.6)'
-        ],
-        borderWidth:1,
-        borderColor:'#777',
-        hoverBorderWidth:3,
-        hoverBorderColor:'#000'
-      }]
-    },
-    options:{
-      title:{
-        display:true,
-        text:'Process plant tray 2',
-        fontSize:25
-      },
-      legend:{
-        display:true,
-        position:'right',
-        labels:{
-          fontColor:'#000'
-        }
-      },
-      layout:{
-        padding:{
-          left:50,
-          right:0,
-          bottom:0,
-          top:0
-        }
-      },
-      tooltips:{
-        enabled:true
-      }
+var tempData = [];
+var humData = [];
+var dayData = [];
+
+// Hàm để cập nhật biểu đồ theo thời gian thực
+function updateRealTimeChart(temperatureData, humidityData, dayData) {
+    var xValues = [];
+    var currentTime = moment().format("HH:mm:ss");
+
+    for (let i = 0; i < temperatureData.length; i++) {
+        xValues.push(moment().subtract(temperatureData.length - 1 - i, "seconds").format("HH:mm:ss"));
     }
-  });
 
-  // Hàm để cập nhật biểu đồ
-  function updateChart() {
-    // Cập nhật dữ liệu trong biểu đồ
-    massPopChart.data.datasets[0].data = [tempData, humData, dayData];
-    massPopChart.update();
-  }
+    new Chart("myChart", {
+        type: "line",
+        data: {
+            labels: xValues,
+            datasets: [
+                {
+                    label: 'Temperature',
+                    data: temperatureData,
+                    borderColor: "red",
+                    fill: false
+                },
+                {
+                    label: 'Humidity',
+                    data: humidityData,
+                    borderColor: "blue",
+                    fill: false
+                },
+                {
+                    label: 'Day',
+                    data: dayData,
+                    borderColor: "yellow",
+                    fill: false
+                }
+            ]
+        },
+        options: {
+            legend: {
+                display: true,
+                position: 'top'
+            },
+            title: {
+                display: true,
+                text: "Plant Process Tray 2",
+                fontSize: 25
+            }
+        }
+    });
+}
 
-  // Đặt dữ liệu mới khi nhận được từ ESP8266
-  function receiveDataFromESP(newTemp, newHum, newDay) {
-    tempData = newTemp;
-    humData = newHum;
-    dayData = newDay;
-    document.getElementById('temperature') = newTemp;
-    document.getElementById('humidity') = newHum;
-    document.getElementById('day') = newDay;
-    updateChart(); // Cập nhật biểu đồ với dữ liệu mới
-  }
+dataValue.once('value')
+    .then((snapshot) => {
+        const data = snapshot.val();
+        var dataElement = document.getElementById("temperature");
+        dataElement.textContent = data.Temp; // Lấy giá trị nhiệt độ từ 'Temp' trong 'Data'
+
+        var humElement = document.getElementById("humidity");
+        humElement.textContent = data.Hum; // Lấy giá trị độ ẩm từ 'Hum' trong 'Data'
+
+        var dayElement = document.getElementById("day");
+        dayElement.textContent = data.Day; // Lấy giá trị ngày từ 'Day' trong 'Data'
+
+        tempData.push(parseFloat(data.Temp));
+        humData.push(parseFloat(data.Hum));
+        dayData.push(parseFloat(data.Day));
+
+        if (!isNaN(tempData[0]) && !isNaN(humData[0]) && !isNaN(dayData[0])) {
+            console.log("Temperature data:", tempData[0]);
+            console.log("Humidity data:", humData[0]);
+            console.log("Day data:", dayData[0]);
+        } else {
+            console.error("Invalid data");
+        }
+
+        updateRealTimeChart(tempData, humData, dayData); // Cập nhật biểu đồ ban đầu
+    })
+    .catch((error) => {
+        console.error("Error reading data: ", error);
+    });
+
+const temperatureRef = firebase.database().ref('Tray2/Temp'); // Theo dõi nhiệt độ
+const humidityRef = firebase.database().ref('Tray2/Hum'); // Theo dõi độ ẩm
+const dayRef = firebase.database().ref('Tray2/Day'); // Theo dõi ngày
+
+function updateTemperature(temperature) {
+    const temperatureElement = document.getElementById("temperature");
+    temperatureElement.textContent = temperature;
+    tempData.push(parseFloat(temperature));
+    updateRealTimeChart(tempData, humData, dayData);
+}
+
+function updateHumidity(humidity) {
+    const humidityElement = document.getElementById("humidity");
+    humidityElement.textContent = humidity;
+    humData.push(parseFloat(humidity));
+    updateRealTimeChart(tempData, humData, dayData);
+}
+
+function updateDay(day) {
+    const dayElement = document.getElementById("day");
+    dayElement.textContent = day;
+    dayData.push(parseFloat(day));
+    updateRealTimeChart(tempData, humData, dayData);
+}
+
+// Đọc giá trị nhiệt độ, độ ẩm và ngày
+temperatureRef.on('value', (snapshot) => {
+    const temperature = snapshot.val();
+    if (temperature !== null) {
+        updateTemperature(temperature);
+    } else {
+        updateTemperature("No data available");
+    }
+});
+
+humidityRef.on('value', (snapshot) => {
+    const humidity = snapshot.val();
+    if (humidity !== null) {
+        updateHumidity(humidity);
+    } else {
+        updateHumidity("No data available");
+    }
+});
+
+dayRef.on('value', (snapshot) => {
+    const day = snapshot.val();
+    if (day !== null) {
+        updateDay(day);
+    } else {
+        updateDay("No data available");
+    }
+});

@@ -2,8 +2,8 @@ function login() {
     var name = prompt("ADMIN:");
     var pass = prompt("Password:");
       //-----------------đổi tên và mật khẩu
-      var user ="khang"; 
-      var pin ="1234";
+      var user ="giaixuan"; 
+      var pin ="2023";
       //-----------------------------------  
     if (name === user && pass === pin) {
       showMainContent(); 
