@@ -35,12 +35,7 @@ void setup()
   //Size and its write timeout e.g. tiny (1s), small (10s), medium (30s) and large (60s).
   Firebase.setwriteSizeLimit(firebaseData, "tiny");
   Firebase.enableClassicRequest(firebaseData, true);
-  
 
-  //String path = "/data";
-
-
-  Serial.println("------------------------------------");
   Serial.println("Connected...");
 }
 
