@@ -1,102 +1,24 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Lưu Dữ Liệu vào Firebase</title>
-    <!-- Cài đặt Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.0.0/firebase-database.js"></script>
+  <style>
+    #rcorners1 {
+        border-radius: 25px;
+        background: blue;
+        padding: 20px; 
+        width: 150px; /* Điều chỉnh chiều rộng theo ý muốn */
+        height: 100px; /* Điều chỉnh chiều cao theo ý muốn */
+      }
+      
+      
+  </style>
 </head>
 <body>
-    <h1>Lưu Dữ Liệu vào Firebase</h1>
-    <form>
-        <label for="txtName">Tên cây:</label>
-        <input type="text" id="txtName" name="name"><br>
 
-        <label for="chAcpt">Chấp nhận:</label>
-        <input type="checkbox" id="chAcpt" name="accept"><br>
+<label for="text">Name vegetable: </label>
+<div id="rcorners1">
+  <input type="text" name="txtName" id="txtName" placeholder="Name plant" required onfocus="doico1()" onblur="doilai1()">
+</div>
 
-        <label for="txtTemp">Nhiệt độ:</label>
-        <input type="text" id="txtTemp" name="temp"><br>
-
-        <label for="txtHum">Độ ẩm:</label>
-        <input type="text" id="txtHum" name="hum"><br>
-
-        <label for="tray">Khay:</label>
-        <select id="tray" name="tray">
-            <option value="1">Khay 1</option>
-            <option value="2">Khay 2</option>
-            <option value="3">Khay 3</option>
-            <option value="4">Khay 4</option>
-        </select><br>
-
-        <button type="button" onclick="saveToFirebase()">Lưu vào Firebase</button>
-    </form>
-
-    <div id="ketqua"></div>
-
-    <script>
-        // Thay thế thông tin cấu hình Firebase của bạn ở đây
-       
-        const firebaseConfig = {
-            apiKey: "AIzaSyDNVI6MfggzOLtCoP1uVAvajd9lKtS22LU",
-            authDomain: "ifarme-df868.firebaseapp.com",
-            databaseURL: "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app",
-            projectId: "ifarme-df868",
-            storageBucket: "ifarme-df868.appspot.com",
-            messagingSenderId: "124564135650",
-            appId: "1:124564135650:web:e969f361eb2d8611fb48bb",
-            measurementId: "G-V3SCKCZMV9"
-        }
-
-        // Khởi tạo Firebase
-        firebase.initializeApp(firebaseConfig);
-
-        // Hàm lưu giá trị vào Firebase
-        function saveToFirebase() {
-            var database = firebase.database();
-            var name = document.getElementById("txtName").value;
-            var accept = document.getElementById("chAcpt").checked;
-            var temp = document.getElementById("txtTemp").value;
-            var hum = document.getElementById("txtHum").value;
-            var tray = document.getElementById("tray").value;
-
-            // Đường dẫn trong Firebase Realtime Database để lưu giá trị
-            var firebasePath = "/plants"; // Thay đổi đường dẫn tùy theo nhu cầu của bạn
-
-            // Tạo đối tượng dữ liệu để lưu vào Firebase
-            var dataToSave = {
-                name: name,
-                accept: accept,
-                temp: temp,
-                hum: hum,
-                tray: tray
-            };
-
-            // Thực hiện lưu dữ liệu vào Firebase
-            database.ref(firebasePath).push(dataToSave)
-                .then(function () {
-                    console.log("Dữ liệu đã được lưu vào Firebase.");
-                    // Hiển thị thông tin đã nhập
-                    displayEnteredInformation(dataToSave);
-                })
-                .catch(function (error) {
-                    console.error("Lỗi khi lưu dữ liệu vào Firebase: " + error);
-                });
-        }
-
-        // Hàm hiển thị thông tin đã nhập
-        function displayEnteredInformation(data) {
-            var info = 'Entered information is:<br>';
-            info += 'Plant name: ' + data.name + '<br>';
-            info += 'Chấp nhận: ' + (data.accept ? 'Đã chấp nhận' : 'Không chấp nhận') + '<br>';
-            info += 'Nhiệt độ: ' + data.temp + '<br>';
-            info += 'Độ ẩm: ' + data.hum + '<br>';
-            info += 'Number Tray: ' + data.tray;
-
-            document.getElementById("ketqua").innerHTML = info;
-        }
-    </script>
 </body>
 </html>
