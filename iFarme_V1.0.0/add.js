@@ -20,19 +20,15 @@ function submitValue() {
     var value = input.value;
 
     if (Tray === "1") {
-        localStorage.setItem('name1', value);
         saveToFirebase();
     }
     else if (Tray === "2") {
-        localStorage.setItem('name2', value);
         saveToFirebase();
     }
     else if (Tray === "3") {
-        localStorage.setItem('name3', value);
         saveToFirebase();
     }
     else if (Tray === "4") {
-        localStorage.setItem('name4', value);
         saveToFirebase();
     }
 }
