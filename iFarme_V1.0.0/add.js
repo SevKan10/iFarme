@@ -100,7 +100,7 @@ function saveToFirebase() {
     var year = document.getElementById("year").value;
 
     // Đường dẫn trong Firebase Realtime Database để lưu giá trị
-    var firebasePath = "/test"; // Thay đổi đường dẫn tùy theo nhu cầu của bạn
+    var firebasePath = "/history"; // Thay đổi đường dẫn tùy theo nhu cầu của bạn
     var dataToSave = {
         name: name,
         accept: accept,

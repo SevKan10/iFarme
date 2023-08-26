@@ -111,6 +111,9 @@ dataValue.once('value')
 const temperatureRef = firebase.database().ref('Tray1/Temp'); // Theo dõi nhiệt độ
 const humidityRef = firebase.database().ref('Tray1/Hum'); // Theo dõi độ ẩm
 const dayRef = firebase.database().ref('Tray1/Day'); // Theo dõi ngày
+const dayPRef = firebase.database().ref('tray1/day'); //  ngày
+const monthRef = firebase.database().ref('tray1/month'); // tháng
+const yearRef = firebase.database().ref('tray1/year'); // năm
 
 function updateTemperature(temperature) {
     const temperatureElement = document.getElementById("temperature");
@@ -131,6 +134,20 @@ function updateDay(day) {
     dayElement.textContent = day;
     dayData.push(parseFloat(day));
     updateRealTimeChart(tempData, humData, dayData);
+}
+
+function updateDayPlant(dayP) {
+    const dayElement = document.getElementById("dayp");
+    dayElement.textContent = dayP;
+}
+
+function updateMonthPlant(month) {
+    const dayElement = document.getElementById("month");
+    dayElement.textContent = month;
+}
+function updateYearPlant(year) {
+    const dayElement = document.getElementById("year");
+    dayElement.textContent = year;
 }
 
 // Đọc giá trị nhiệt độ, độ ẩm và ngày
@@ -158,5 +175,32 @@ dayRef.on('value', (snapshot) => {
         updateDay(day);
     } else {
         updateDay("No data available");
+    }
+});
+
+dayPRef.on('value', (snapshot) => {
+    const dayP = snapshot.val();
+    if (dayP !== null) {
+        updateDayPlant(dayP);
+    } else {
+        updateDayPlant("No data available");
+    }
+});
+
+monthRef.on('value', (snapshot) => {
+    const month = snapshot.val();
+    if (month !== null) {
+        updateMonthPlant(month);
+    } else {
+        updateMonthPlant("No data available");
+    }
+});
+
+yearRef.on('value', (snapshot) => {
+    const year = snapshot.val();
+    if (year !== null) {
+        updateYearPlant(year);
+    } else {
+        updateYearPlant("No data available");
     }
 });
