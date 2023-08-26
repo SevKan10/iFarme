@@ -101,18 +101,15 @@ function saveToFirebase() {
 
     // Đường dẫn trong Firebase Realtime Database để lưu giá trị
     var firebasePath = "/test"; // Thay đổi đường dẫn tùy theo nhu cầu của bạn
-
-    // Tạo đối tượng dữ liệu để lưu vào Firebase
     var dataToSave = {
         name: name,
         accept: accept,
-        temp: temp,
-        hum: hum,
         tray: tray,
         day: day,
         month: month,
         year: year
     };
+
 
     // Thực hiện lưu dữ liệu vào Firebase
     database.ref(firebasePath).push(dataToSave)
@@ -128,4 +125,20 @@ function saveToFirebase() {
         .catch(function (error) {
             console.error("Lỗi khi lưu dữ liệu vào Firebase: " + error);
         });
+
+        var firebasePathTray1 = "/tray5"; // Đường dẫn cho tray 5
+        var dataToSaveTray1 = {
+            temp: temp,
+            hum: hum
+        };
+    
+        database.ref(firebasePathTray1).set(dataToSaveTray1)
+            .then(function () {
+                console.log("Nhiệt độ và độ ẩm đã được lưu vào tray 1 trong Firebase.");
+            })
+            .catch(function (error) {
+                console.error("Lỗi khi lưu dữ liệu vào Firebase (tray1): " + error);
+            });
 }
+
+
