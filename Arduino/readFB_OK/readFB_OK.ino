@@ -1,18 +1,18 @@
 #include <WiFi.h>
 #include <FirebaseESP32.h>
 
-#define FIREBASE_HOST "ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app"
+#define FIREBASE_HOST "https://ifarme-df868-default-rtdb.asia-southeast1.firebasedatabase.app/"
 #define FIREBASE_AUTH "D87Btza8MgiifClqiT3fL7DdQ3rtO8cVQqRKY6BY"
 #define WIFI_SSID "MINH KHA"
 #define WIFI_PASSWORD "0855508877"
 
-// Khởi tạo đối tượng Firebase
-FirebaseData firebaseData;
+
+FirebaseData fbdo;
 
 void setup() {
   Serial.begin(115200);
 
-  // Kết nối Wi-Fi
+  // Kết nối đến mạng Wi-Fi
   WiFi.begin(WIFI_SSID, WIFI_PASSWORD);
   while (WiFi.status() != WL_CONNECTED) {
     delay(1000);
@@ -20,33 +20,79 @@ void setup() {
   }
   Serial.println("Connected to WiFi");
 
-  // Khởi tạo kết nối Firebase
+  // Kết nối đến Firebase
   Firebase.begin(FIREBASE_HOST, FIREBASE_AUTH);
 }
 
 void loop() {
-  // Đọc giá trị từ Firebase Realtime Database
-  if (Firebase.getInt(firebaseData, "/Data/Day")) {
-    Serial.println("Got data from Firebase:");
-    Serial.print("Day: " + String(firebaseData.dataType()) + " = " + String(firebaseData.intData()));
+  // Đọc giá trị kiểu chuỗi (string) từ Firebase
+  if (Firebase.RTDB.getString(&fbdo, "/tray5/hum")) {
+    if (fbdo.dataType() == "string") {
+      String humValue = fbdo.stringData();
+      Serial.print("Humidity Value: ");
+      Serial.println(humValue);
+    }
   } else {
-    Serial.println("Failed to get Day data from Firebase.");
-    Serial.println(firebaseData.errorReason());
+    Serial.print("Failed to get Humidity data: ");
+    Serial.println(fbdo.errorReason());
   }
 
-  if (Firebase.getInt(firebaseData, "/Data/Hum")) {
-    Serial.print("  Hum: " + String(firebaseData.dataType()) + " = " + String(firebaseData.intData()));
+  // Đọc giá trị kiểu chuỗi (string) từ Firebase
+  if (Firebase.RTDB.getString(&fbdo, "/tray5/temp")) {
+    if (fbdo.dataType() == "string") {
+      String tempValue = fbdo.stringData();
+      Serial.print("Temperature Value: ");
+      Serial.println(tempValue);
+    }
   } else {
-    Serial.println("Failed to get Hum data from Firebase.");
-    Serial.println(firebaseData.errorReason());
+    Serial.print("Failed to get Temperature data: ");
+    Serial.println(fbdo.errorReason());
   }
 
-  if (Firebase.getInt(firebaseData, "/Data/Temp")) {
-    Serial.println("  Temp: " + String(firebaseData.dataType()) + " = " + String(firebaseData.intData()));
-  } else {
-    Serial.println("Failed to get Temp data from Firebase.");
-    Serial.println(firebaseData.errorReason());
+  delay(10000); // Đọc dữ liệu mỗi 10 giây
+}  if (timeClient.getSeconds() == 0) {
+    day = ++i;
+    // Serial.print("T:  ");
+    // Serial.print(k2_decimal.toInt());
+    // Serial.print("  H:  ");
+    // Serial.print(k1_decimal.toInt());
+    // Serial.print("  TM:  ");
+    // Serial.println(timeClient.getSeconds());
   }
 
-  delay(1000);
-}
+  if (millis() - myTime > 5000) {
+    if (Firebase.RTDB.getString(&fbdo, "/tray5/hum")) {
+      if (fbdo.dataType() == "string") {
+        humValue = fbdo.stringData();
+        // Serial.println(humValue);
+      }
+    } else {
+      Serial.print("Failed to get Humidity data: ");
+      Serial.println(fbdo.errorReason());
+    }
+
+    if (Firebase.RTDB.getString(&fbdo, "/tray5/temp")) {
+      if (fbdo.dataType() == "string") {
+        tempValue = fbdo.stringData();
+        // Serial.println(tempValue);
+      }
+    } else {
+      Serial.print("Failed to get Temperature data: ");
+      Serial.println(fbdo.errorReason());
+    }
+
+    float ht = humValue.toFloat();
+    float tt = tempValue.toFloat();
+    datat += "*" + String(ht);
+    datat += "#" + String(tt);
+    Serial2.print(datat);
+    // Serial.println(datat);
+    delay(1000);
+    data = "";
+  }
+  FirebaseData fbdo;
+
+String data, datat, tem, k1_decimal, k2_decimal, humValue, tempValue;
+String k1 = "", k2 = "";
+int e1 = 0, e2 = 0;
+int day = 0, i = 0;
